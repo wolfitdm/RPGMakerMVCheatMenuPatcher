@@ -1,0 +1,4 @@
+C:\Users\CdemyTeilnehmer\source\repos\RPGMakerMVCheatMenuPatcher\RPGMakerMVCheatMenuPatcher\obj\Debug\net5.0\RPGMakerMVCheatMenuPatcher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CdemyTeilnehmer\source\repos\RPGMakerMVCheatMenuPatcher\RPGMakerMVCheatMenuPatcher\obj\Debug\net5.0\RPGMakerMVCheatMenuPatcher.AssemblyInfoInputs.cache
+C:\Users\CdemyTeilnehmer\source\repos\RPGMakerMVCheatMenuPatcher\RPGMakerMVCheatMenuPatcher\obj\Debug\net5.0\RPGMakerMVCheatMenuPatcher.AssemblyInfo.cs
+C:\Users\CdemyTeilnehmer\source\repos\RPGMakerMVCheatMenuPatcher\RPGMakerMVCheatMenuPatcher\obj\Debug\net5.0\RPGMakerMVCheatMenuPatcher.csproj.CoreCompileInputs.cache
