@@ -6,6 +6,7 @@ namespace RPGMakerMVCheatMenuPatcher
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Text.RegularExpressions;
 
     class Program
     {
@@ -125,22 +126,31 @@ namespace RPGMakerMVCheatMenuPatcher
 
                 Console.WriteLine($"Patch Path: {path}");
 
-                string input = File.ReadAllText(path);
+                string[] lines = File.ReadAllLines(path);
 
-                // The search text we want to replace with an actual newline
-                string searchText =  "        <script type=\"text/javascript\" src=\"js/main.js\"></script>\n";
-                string replaceText = "        <script type=\"text/javascript\" src=\"js/main.js\"></script>\n        <script type=\"text/javascript\" src=\"js/main2.js\"></script>\n";
+                string all = "";
 
-                // Replace with the system's newline (Environment.NewLine works cross-platform)
-                input = input.Replace(searchText, replaceText);
+                foreach (string line in lines)
+                {
+                    string input = line;
 
-                searchText =  "        <script type=\"text/javascript\" src=\"www/js/main.js\"></script>\n";
-                replaceText = "        <script type=\"text/javascript\" src=\"www/js/main.js\"></script>\n        <script type=\"text/javascript\" src=\"www/js/main2.js\"></script>\n";
+                    // The search text we want to replace with an actual newline
+                    string main = "<script type=\"text/javascript\"\\s+src=\"js/main\\.js\"></script>";
+                    string searchText = @$"^(\s+)?{main}";
+                    string replaceText = "$1<script type=\"text/javascript\" src=\"js/main.js\"></script>\n$1<script type=\"text/javascript\" src=\"js/main2.js\"></script>";
 
-                // Replace with the system's newline (Environment.NewLine works cross-platform)
-                input = input.Replace(searchText, replaceText);
+                    input = Regex.Replace(input, searchText, replaceText);
 
-                File.WriteAllText(path, input);
+                    main = "<script type=\"text/javascript\"\\s+src=\"www/js/main\\.js\"></script>";
+                    searchText = @$"^(\s+)?{main}";
+                    replaceText = "$1<script type=\"text/javascript\" src=\"www/js/main.js\"></script>\n$1<script type=\"text/javascript\" src=\"www/js/main2.js\"></script>";
+
+                    input = Regex.Replace(input, searchText, replaceText);
+
+                    all += input + "\n";
+                }
+
+                File.WriteAllText(path, all);
 
                 Console.WriteLine($"Patch path: {path} completed!");
             }
