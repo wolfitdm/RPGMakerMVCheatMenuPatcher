@@ -130,11 +130,29 @@ namespace RPGMakerMVCheatMenuPatcher
 
                 string all = "";
 
+                bool skipLine = false;
+
                 foreach (string line in lines)
                 {
                     string input = line;
-
+                    string main2 = "<script type=\"text/javascript\"\\s+src=\"js/main2\\.js\"></script>";
+                    string searchMain2 = @$"^(\s+)?{main2}";
                     // The search text we want to replace with an actual newline
+                    Match match = Regex.Match(input, searchMain2, RegexOptions.IgnoreCase);
+                    if (match.Success) {
+                       skipLine = true;
+                       break;
+                    }
+                }
+
+                if (skipLine) {
+                   Console.WriteLine($"Patch path: {path} completed/skipped!");
+                   continue;
+                }
+
+                foreach (string line in lines)
+                {
+                    string input = line;
                     string main = "<script type=\"text/javascript\"\\s+src=\"js/main\\.js\"></script>";
                     string searchText = @$"^(\s+)?{main}";
                     string replaceText = "$1<script type=\"text/javascript\" src=\"js/main.js\"></script>\n$1<script type=\"text/javascript\" src=\"js/main2.js\"></script>";
